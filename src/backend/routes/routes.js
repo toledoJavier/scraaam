@@ -18,11 +18,28 @@ router.get('/proyectos', (req, res, next) => {
     .catch(next)
 })
 
+router.param('proyecto', (req, res, next, value) => {
+  Project.findById(value)
+    .then(project => {
+      if (! project ) {
+        throw new Error(`Proyecto no encontrada ${value}`)
+      }
+      req.project = project
+      next()
+    })
+    .catch(next)
+})
+
+router.get('/proyectos/:proyecto', (req, res, next) => {
+	req.project.populate('milestones').execPopulate()
+		.then(completeProject => res.json(completeProject))
+		.catch(next)
+})
+
 router.post('/proyectos', (req, res, next) => {
   const proyecto = new Project(req.body)
-
   proyecto.save()
-  .then(proyecto => res.json(proyecto.id))
+  .then(proyecto => res.json(proyecto))
   .catch(next)
 })
 

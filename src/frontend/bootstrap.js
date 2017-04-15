@@ -11,19 +11,26 @@ import 'rxjs/add/operator/toPromise'
 
 import AppComponent from './app/components/app.component'
 import ExampleComponent from './app/components/example.component'
+import NavbarComponent from './app/components/navbar.component'
+import NewProjectComponent from './app/components/newProject.component'
+import MilestoneComponent from './app/components/milestone.component'
 
 import { RouterModule }  from '@angular/router';
 
 let router = RouterModule.forRoot([
-  { path: '', redirectTo: '/example', pathMatch: 'full' },
-  { path: 'example', component: ExampleComponent }
+  { path: '', redirectTo: '/proyectos', pathMatch: 'full' },
+  { path: 'proyectos', component: NewProjectComponent },
+  { path: 'proyecto/:id', component: MilestoneComponent }
 ], { useHash: true })
 
 @NgModule({
   imports: [ router, BrowserModule, FormsModule, HttpModule ],
   declarations: [
     AppComponent,
-    ExampleComponent
+    ExampleComponent,
+    NavbarComponent,
+    NewProjectComponent,
+    MilestoneComponent
   ],
   bootstrap: [ AppComponent ]
 })

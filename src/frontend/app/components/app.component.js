@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 
+import ProjectService from '../services/project.service';
+
 @Component({
   selector: 'app-view',
-  template: `<h1>Base {{name}}</h1>
-            <router-outlet></router-outlet>`
+  template: `<navbar></navbar>
+            <router-outlet></router-outlet>`,
+  providers: [ ProjectService ]
 })
 export default class AppComponent {
   constructor() {

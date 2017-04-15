@@ -25,7 +25,6 @@ export default class ProjectService {
       this.http.post("/proyectos", JSON.stringify(project), { headers:{'Content-Type': 'application/json'}})
               .toPromise()
               .then(response => this._projects.push(project))
-              .then(console.log(project))
               .catch(err => console.log(err))
     }
 }
