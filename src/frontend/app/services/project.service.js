@@ -17,15 +17,23 @@ export default class ProjectService {
     }
     
     getProject(id) {
-      return this.http.get(`/proyectos/${id}`).toPromise()
-              .then(response => response.json());
+      return this.http.get(`/proyectos/${id}`)
+              .toPromise()
+              .then(response => response.json())
     }
 
     create(project) {
       this.http.post("/proyectos", JSON.stringify(project), { headers:{'Content-Type': 'application/json'}})
               .toPromise()
-              .then(response => this._projects.push(project))
+              .then(response => this._projects.push(response.json()))
               .catch(err => console.log(err))
+    }
+
+    addMilestone(id, milestone) {
+      return this.http.post(`/proyectos/${id}/milestones`, JSON.stringify(milestone), { headers:{'Content-Type': 'application/json'}})
+        .toPromise()
+        .then(response => response.json())
+        .catch(err => console.log(err))
     }
 }
 

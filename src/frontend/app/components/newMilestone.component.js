@@ -4,10 +4,17 @@ import { ActivatedRoute } from '@angular/router';
 import ProjectService from '../services/project.service';
 
 @Component({
-  selector: 'milestone',
-  template: `<span class="span-page">{{project.name}} | Milestones </span>
-  			<hr>
-  			<new-milestone></new-milestone>`
+  selector: 'new-milestone',
+  template: `<div class="right-wrapper">
+  			<div id="right">
+			    <h3>Milestones</h3>
+			    <div *ngFor="let item of project.milestones">
+			    {{item.name}}
+			    </div>
+				<input [(ngModel)]="data.name" placeholder="Nombre" name="name">
+				<button type="button" (click)="onSubmit()">Crear</button>
+			</div>
+			</div>`
 })
 
 export default class MilestoneComponent {
@@ -29,9 +36,9 @@ export default class MilestoneComponent {
 	onSubmit() {
 	    this.projectService.addMilestone(this.project._id, this.data)
 	    	.then(project => this.project = project)
-	        .catch(e => console.log(e));
+	    .catch(e => console.log(e));
 	    this.data = {}
-	  }
+	 }
 }
 
 MilestoneComponent.parameters = [

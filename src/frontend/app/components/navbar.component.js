@@ -26,7 +26,6 @@ import ProjectService from '../services/project.service';
 export default class NavbarComponent {
 	constructor(projectService) {
 		this.simpleValue = "Proyecto..."
-		this.selected = null;
     	this.projects = projectService.projects;
   	}
 }

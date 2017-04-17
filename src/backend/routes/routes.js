@@ -43,4 +43,22 @@ router.post('/proyectos', (req, res, next) => {
   .catch(next)
 })
 
+router.post('/proyectos/:proyecto/milestones', (req, res, next) => {
+  const project = req.project
+  const milestone = new Milestone(req.body)
+  milestone.project = project
+
+  milestone.save()
+    .then(savedMilestone => {
+      project.milestones.push(savedMilestone)
+
+      project.save()
+        .then(savedProject => {
+          savedProject.populate('milestones').execPopulate()
+            .then(completeProject => res.json(completeProject))
+            .catch(next)})
+        .catch(next)
+  })
+})
+
 export default router

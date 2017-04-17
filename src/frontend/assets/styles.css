@@ -100,3 +100,22 @@ nav > ul > li > div ul > li > a {
 nav > ul > li > div ul > li:hover > a {
   background-color: rgba( 255, 255, 255, 0.1);
 }
+
+#sidebar {
+  padding: 1em;
+  width: 30%;
+  border: 1px solid black;
+  float: right;
+}
+
+.right-wrapper {
+  width: 20%;
+  float: right;
+}
+div#right {
+    height: 100%;
+    position: absolute;
+    /* background-color: rgb( 40, 44, 47 ); */
+    padding: 20px;
+    border: 1px solid black;
+}

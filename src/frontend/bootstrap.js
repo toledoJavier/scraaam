@@ -14,13 +14,15 @@ import ExampleComponent from './app/components/example.component'
 import NavbarComponent from './app/components/navbar.component'
 import NewProjectComponent from './app/components/newProject.component'
 import MilestoneComponent from './app/components/milestone.component'
+import NewMilestoneComponent from './app/components/newMilestone.component'
 
 import { RouterModule }  from '@angular/router';
 
 let router = RouterModule.forRoot([
   { path: '', redirectTo: '/proyectos', pathMatch: 'full' },
   { path: 'proyectos', component: NewProjectComponent },
-  { path: 'proyecto/:id', component: MilestoneComponent }
+  { path: 'proyecto/:id', component: MilestoneComponent },
+  { path: 'proyectos/:id/milestones', component: NewMilestoneComponent }
 ], { useHash: true })
 
 @NgModule({
@@ -30,7 +32,8 @@ let router = RouterModule.forRoot([
     ExampleComponent,
     NavbarComponent,
     NewProjectComponent,
-    MilestoneComponent
+    MilestoneComponent,
+    NewMilestoneComponent
   ],
   bootstrap: [ AppComponent ]
 })
