@@ -8,7 +8,7 @@ import MilestoneService from '../services/milestone.service';
   inputs: ['data'],
   outputs: ['updateMilestoneEvent'],
   template: `<h3 class="epics-title">Epics</h3>
-  			<div class="epics-list" *ngFor="let item of data.epics; let i = index" [attr.data-index]="i">
+  			<div class="epics-list" *ngFor="let item of data.epics; let i = index" [attr.data-index]="i" [routerLink]="['/epic', item._id]">
 		    	Epic {{i + 1}}: {{item.description}}
 		    </div>
 		    <br>

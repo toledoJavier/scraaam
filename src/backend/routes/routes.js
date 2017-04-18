@@ -3,7 +3,8 @@ import express from 'express'
 import Project from '../models/Project.js'
 import Milestone from '../models/Milestone.js'
 import Epic from '../models/Epic.js'
-
+import Comment from '../models/Comment.js'
+import Task from '../models/Task.js'
 
 let router = express.Router()
 
@@ -63,7 +64,7 @@ router.param('milestone', (req, res, next, value) => {
   Milestone.findById(value)
     .then(milestone => {
       if (! milestone ) {
-        throw new Error(`Proyecto no encontrada ${value}`)
+        throw new Error(`Milestone no encontrada ${value}`)
       }
       req.milestone = milestone
       next()
@@ -73,9 +74,7 @@ router.param('milestone', (req, res, next, value) => {
 
 router.get('/milestones/:milestone', (req, res, next) => {
   req.milestone.populate('epics').execPopulate()
-    .then(completeMilestone => {
-      console.log(completeMilestone)
-      res.json(completeMilestone)})
+    .then(completeMilestone => res.json(completeMilestone))
     .catch(next)
 })
 
@@ -83,7 +82,7 @@ router.post('/milestones/:milestone/epics', (req, res, next) => {
   const milestone = req.milestone
   const epic = new Epic(req.body)
   epic.milestone = milestone
-  console.log("aca")
+  
   epic.save()
     .then(savedEpic => {
       milestone.epics.push(savedEpic)
@@ -92,6 +91,61 @@ router.post('/milestones/:milestone/epics', (req, res, next) => {
         .then(savedMilestone => {
           savedMilestone.populate('epics').execPopulate()
             .then(completeMilestone => res.json(completeMilestone))
+            .catch(next)})
+        .catch(next)
+  })
+})
+
+router.param('epic', (req, res, next, value) => {
+  Epic.findById(value)
+    .then(epic => {
+      if (! epic ) {
+        throw new Error(`Epic no encontrado ${value}`)
+      }
+      req.epic = epic
+      next()
+    })
+    .catch(next)
+})
+
+router.get('/epics/:epic', (req, res, next) => {
+  
+  req.epic.populate('tasks').populate('comments').execPopulate()
+    .then(completeEpic => res.json(completeEpic))
+    .catch(next)
+})
+
+router.post('/epics/:epic/comments', (req, res, next) => {
+  const epic = req.epic
+  const comment = new Comment(req.body)
+  comment.epic = epic
+  
+  comment.save()
+    .then(savedComment => {
+      epic.comments.push(savedComment)
+
+      epic.save()
+        .then(savedEpic => {
+          savedEpic.populate('tasks').populate('comments').execPopulate()
+            .then(completeEpic => res.json(completeEpic))
+            .catch(next)})
+        .catch(next)
+  })
+})
+
+router.post('/epics/:epic/tasks', (req, res, next) => {
+  const epic = req.epic
+  const task = new Task(req.body)
+  task.epic = epic
+  
+  task.save()
+    .then(savedTask => {
+      epic.tasks.push(savedTask)
+
+      epic.save()
+        .then(savedEpic => {
+          savedEpic.populate('tasks').populate('comments').execPopulate()
+            .then(completeEpic => res.json(completeEpic))
             .catch(next)})
         .catch(next)
   })

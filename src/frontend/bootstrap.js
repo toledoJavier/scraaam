@@ -16,13 +16,15 @@ import NewProjectComponent from './app/components/newProject.component'
 import MilestoneComponent from './app/components/milestone.component'
 import DetailMilestoneComponent from './app/components/detailMilestone.component'
 import EpicComponent from './app/components/epic.component'
+import DetailEpicComponent from './app/components/detailEpic.component'
 
 import { RouterModule }  from '@angular/router';
 
 let router = RouterModule.forRoot([
   { path: '', redirectTo: '/proyectos', pathMatch: 'full' },
   { path: 'proyectos', component: NewProjectComponent },
-  { path: 'proyecto/:id', component: MilestoneComponent }
+  { path: 'proyecto/:id', component: MilestoneComponent },
+  { path: 'epic/:id', component: DetailEpicComponent }
 ], { useHash: true })
 
 @NgModule({
@@ -34,7 +36,8 @@ let router = RouterModule.forRoot([
     NewProjectComponent,
     MilestoneComponent,
     DetailMilestoneComponent,
-    EpicComponent
+    EpicComponent,
+    DetailEpicComponent
   ],
   bootstrap: [ AppComponent ]
 })
