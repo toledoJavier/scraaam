@@ -11,17 +11,19 @@ import MilestoneService from '../services/milestone.service';
   			<section class="container">
 			  <div class="left-half">
 			    <article>
-			      <detail-milestone [data]="selectedMilestone"></detail-milestone>
+			    	<div *ngIf="milestoneIsSelected">
+			    		<detail-milestone [data]="selectedMilestone"></detail-milestone>
+			    	</div>
 			    </article>
 			  </div>
 			  <div class="right-half">
 			    <article>
-			      	<h2>Milestones</h2>
+			      	<h2 class="milestones-title">Milestones</h2>
 				    <div class="milestone-list" *ngFor="let item of project.milestones" (click)="selectMilestone(item)">
 				    	{{item.name}}
 				    </div>
 					<input [(ngModel)]="data.name" placeholder="Nombre" name="name">
-					<button type="button" (click)="onSubmit()">Crear</button>
+					<button type="button" (click)="onSubmit()">Crear Milestone</button>
 			    </article>
 			  </div>
 			</section>`
@@ -30,6 +32,7 @@ import MilestoneService from '../services/milestone.service';
 export default class MilestoneComponent {
 	constructor(route, projectService, milestoneService) {
 		this.selectedMilestone = {}
+		this.milestoneIsSelected = false;
 		this.data = {}
 		this.route = route
 		this.projectService = projectService
@@ -38,6 +41,7 @@ export default class MilestoneComponent {
 
 	ngOnInit() {
 		this.selectedMilestone = {}
+		this.milestoneIsSelected = false;
 		this.project = {}
 		this.route.params.subscribe(params => {
 	    this.projectService.getProject(params.id)
@@ -55,7 +59,9 @@ export default class MilestoneComponent {
 
 	selectMilestone(milestone) {
 		this.milestoneService.getMilestone(milestone._id)
-			.then(response => this.selectedMilestone = response)
+			.then(response => {
+				this.selectedMilestone = response
+				this.milestoneIsSelected = true;})
 	        .catch(e => console.log(e));
 	}
 }

@@ -1,11 +1,9 @@
 import express from 'express'
 
 import Project from '../models/Project.js'
-
 import Milestone from '../models/Milestone.js'
+import Epic from '../models/Epic.js'
 
-//Import models
-//import Example from '../models/example.js'
 
 let router = express.Router()
 
@@ -74,11 +72,29 @@ router.param('milestone', (req, res, next, value) => {
 })
 
 router.get('/milestones/:milestone', (req, res, next) => {
-  req.milestone.execPopulate()
+  req.milestone.populate('epics').execPopulate()
     .then(completeMilestone => {
       console.log(completeMilestone)
       res.json(completeMilestone)})
     .catch(next)
+})
+
+router.post('/milestones/:milestone/epics', (req, res, next) => {
+  const milestone = req.milestone
+  const epic = new Epic(req.body)
+  epic.milestone = milestone
+  console.log("aca")
+  epic.save()
+    .then(savedEpic => {
+      milestone.epics.push(savedEpic)
+
+      milestone.save()
+        .then(savedMilestone => {
+          savedMilestone.populate('epics').execPopulate()
+            .then(completeMilestone => res.json(completeMilestone))
+            .catch(next)})
+        .catch(next)
+  })
 })
 
 export default router

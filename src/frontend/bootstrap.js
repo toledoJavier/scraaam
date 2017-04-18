@@ -15,6 +15,7 @@ import NavbarComponent from './app/components/navbar.component'
 import NewProjectComponent from './app/components/newProject.component'
 import MilestoneComponent from './app/components/milestone.component'
 import DetailMilestoneComponent from './app/components/detailMilestone.component'
+import EpicComponent from './app/components/epic.component'
 
 import { RouterModule }  from '@angular/router';
 
@@ -32,7 +33,8 @@ let router = RouterModule.forRoot([
     NavbarComponent,
     NewProjectComponent,
     MilestoneComponent,
-    DetailMilestoneComponent
+    DetailMilestoneComponent,
+    EpicComponent
   ],
   bootstrap: [ AppComponent ]
 })

@@ -14,6 +14,12 @@ export default class MilestoneService {
               .then(response => response.json())
     }
 
+    addEpic(id, epic) {
+      return this.http.post(`/milestones/${id}/epics`, JSON.stringify(epic), { headers:{'Content-Type': 'application/json'}})
+        .toPromise()
+        .then(response => response.json())
+        .catch(err => console.log(err))
+    }
 }
 
 MilestoneService.parameters = [

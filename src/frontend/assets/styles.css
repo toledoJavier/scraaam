@@ -146,10 +146,19 @@ body {
   background: #ff9e2c;
 }
 
-h2 {
+h2.milestones-title {
   color: white;
 }
 
 span.span-page {
     color: rgb(61, 61, 62);
+}
+
+.epics-list {
+    border: 1px solid black;
+    padding: 0.5em;
+}
+
+h3.epics-title {
+  color: black;
 }
