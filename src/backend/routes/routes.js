@@ -61,4 +61,24 @@ router.post('/proyectos/:proyecto/milestones', (req, res, next) => {
   })
 })
 
+router.param('milestone', (req, res, next, value) => {
+  Milestone.findById(value)
+    .then(milestone => {
+      if (! milestone ) {
+        throw new Error(`Proyecto no encontrada ${value}`)
+      }
+      req.milestone = milestone
+      next()
+    })
+    .catch(next)
+})
+
+router.get('/milestones/:milestone', (req, res, next) => {
+  req.milestone.execPopulate()
+    .then(completeMilestone => {
+      console.log(completeMilestone)
+      res.json(completeMilestone)})
+    .catch(next)
+})
+
 export default router

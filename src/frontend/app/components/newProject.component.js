@@ -7,6 +7,7 @@ import ProjectService from '../services/project.service';
   template: `Crear Proyecto:
             <form>
               <input [(ngModel)]="data.name" placeholder="Titulo" name="title">
+              <br>
               <button type="button" (click)="onSubmit()">Crear Proyecto</button>
             </form>`
 })

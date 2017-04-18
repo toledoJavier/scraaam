@@ -1,6 +1,6 @@
 nav {
-  background-color: #fff;
-  border: 1px solid #dedede;
+  background-color: #3d3d3e;
+  border: 1px solid #76daff;
   border-radius: 4px;
   box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
   color: #888;
@@ -42,7 +42,7 @@ nav > ul > li > a > .caret {
 }
 
 nav > ul > li > a {
-  color: #aaa;
+  color: #76daff;
   display: block;
   line-height: 56px;
   padding: 0 24px;
@@ -101,21 +101,55 @@ nav > ul > li > div ul > li:hover > a {
   background-color: rgba( 255, 255, 255, 0.1);
 }
 
-#sidebar {
-  padding: 1em;
-  width: 30%;
-  border: 1px solid black;
-  float: right;
+// Pen-specific styles
+html, body, section, div {
+  height: 100%;
 }
 
-.right-wrapper {
-  width: 20%;
-  float: right;
+h1 {
+  font-size: 1.75rem;
+  margin: 0 0 0.75rem 0;
 }
-div#right {
-    height: 100%;
-    position: absolute;
-    /* background-color: rgb( 40, 44, 47 ); */
-    padding: 20px;
+
+// Pattern styles
+.container {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.left-half {
+  background: white;
+  display: table-cell;
+  width: 100%;
+  padding: 2rem;
+  border: 1px solid black;
+}
+
+.right-half {
+  background: #3d3d3e;
+  display: table-cell;
+  width: 100%;
+  padding: 2rem;
+  border: 1px solid #76daff;
+}
+
+.milestone-list {
     border: 1px solid black;
+    background: white;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    padding: 0.5em;
+}
+
+body {
+  background: #ff9e2c;
+}
+
+h2 {
+  color: white;
+}
+
+span.span-page {
+    color: rgb(61, 61, 62);
 }
