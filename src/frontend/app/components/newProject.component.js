@@ -5,11 +5,12 @@ import ProjectService from '../services/project.service';
 @Component({
   selector: 'new-project',
   template: `Crear Proyecto:
-            <form>
-              <input [(ngModel)]="data.name" placeholder="Titulo" name="title">
-              <br>
-              <button type="button" (click)="onSubmit()">Crear Proyecto</button>
-            </form>`
+            <div class="form-group row">
+              <div class="col-xs-4">
+                <input type="text" class="form-control" [(ngModel)]="data.name" placeholder="Titulo" name="title">
+                <button type="button" class="btn btn-primary navbar-btn" (click)="onSubmit()">Crear Proyecto</button>
+              </div>
+            </div>`
 })
 
 export default class NewProjectComponent {

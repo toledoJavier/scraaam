@@ -7,14 +7,22 @@ import MilestoneService from '../services/milestone.service';
   selector: 'epic',
   inputs: ['data'],
   outputs: ['updateMilestoneEvent'],
-  template: `<h3 class="epics-title">Epics</h3>
-  			<div class="epics-list" *ngFor="let item of data.epics; let i = index" [attr.data-index]="i" [routerLink]="['/epic', item._id]">
-		    	Epic {{i + 1}}: {{item.description}}
-		    </div>
-		    <br>
-		    <div>
-			    <input [(ngModel)]="newEpic.description" placeholder="Descripción" name="description">
-				<button type="button" (click)="onSubmit()">Crear Epic</button>
+  styleUrls: ['./assets/styles.css'],
+  template: `<div class="panel panel-info">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading">Epics</div>
+			  <!-- List group -->
+			  <ul class="list-group">
+			    <li class="list-group-item" *ngFor="let item of data.epics; let i = index" [attr.data-index]="i" [routerLink]="['/epic', item._id]">
+			    	Epic {{i + 1}}: {{item.description}}
+			    </li>
+			  </ul>
+			</div>
+			<div class="form-group row">
+      			<div class="col-xs-8">
+					<input type="text" class="form-control" [(ngModel)]="newEpic.description" placeholder="Descripción" name="description">
+					<button  class="btn btn-primary navbar-btn" type="button" (click)="onSubmit()">Crear Epic</button>
+				</div>
 			</div>`
 })
 

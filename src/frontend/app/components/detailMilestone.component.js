@@ -8,7 +8,7 @@ import EpicComponent from './epic.component'
   selector: 'detail-milestone',
   inputs: ['data'],
   template: `<h1>{{data.name}}</h1>
-      			{{data.epics?.length}} Epics - Tasks
+      			<h5 class="text-muted">{{data.epics?.length}} Epics</h5>
       			<epic [data]=data (updateMilestoneEvent)="handleUpdateMilestoneEvent($event)"></epic>`,
   directives: [EpicComponent]
 })
