@@ -1,0 +1,18 @@
+li.list-group-item {
+    cursor: pointer;
+}
+
+li.list-group-item:hover {
+    background-color: #edf4f7;
+}
+
+.panel-with-margin {
+    padding: 45px 15px 15px;
+    margin: 0 -15px 0px;
+}
+
+.panel-empty {
+    text-align: center;
+    border-style: dashed;
+    border-color: #b3b3b3;
+}
