@@ -5,7 +5,9 @@
   "scripts": {
     "start": "babel-node -- src/backend/server.js",
     "test": "mocha test/backend --recursive --compilers js:babel-core/register --require babel-polyfill --timeout 120000",
-    "coverage-test": "NODE_ENV=test nyc --require babel-core/register mocha --compilers js:babel-register --recursive test"
+    "coverage-test": "NODE_ENV=test nyc --require babel-core/register mocha --compilers js:babel-register --recursive test/backend",
+    "coverage-report": "nyc report --reporter=lcov",
+    "coverage-upload": "codecov"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +36,7 @@
     "mocha": "^3.3.0",
     "mockgoose": "6",
     "nyc": "^10.3.2",
+    "protractor": "^5.1.1",
     "raw-loader": "^0.5.1",
     "script-loader": "^0.7.0",
     "sinon": "^2.1.0",

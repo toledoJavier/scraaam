@@ -22,4 +22,4 @@ TestBed.initTestEnvironment(
 //every test file in the current directory (and subdirectories). This is done
 //to force webpack to transpile everything
 const req = require.context('.', true, /\.test\.js$/);
-req.keys().forEach(req);
+req.keys().forEach(key => req(key));
