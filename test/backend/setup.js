@@ -9,7 +9,7 @@ import mockgoose from "mockgoose"
 export function setupMocha() {
 	before("Mock mongoose", async() => {
 		await mockgoose(mongoose)
-		mongoose.connect('mongodb://localhost/commissions')
+		mongoose.connect('mongodb://localhost/projects')
 	})
 
 	after("Restore mongoose", done => {

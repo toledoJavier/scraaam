@@ -1,9 +1,9 @@
 {
   "name": "scraaam",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "babel-node -- src/backend/index.js",
+    "start": "babel-node -- src/backend/server.js",
     "test": "mocha test/backend --recursive --compilers js:babel-core/register --require babel-polyfill --timeout 120000",
     "coverage-test": "NODE_ENV=test nyc --require babel-core/register mocha --compilers js:babel-register --recursive test"
   },

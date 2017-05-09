@@ -30,9 +30,7 @@ router.param('proyecto', (req, res, next, value) => {
 })
 
 router.get('/proyectos/:proyecto', (req, res, next) => {
-	req.project.populate('milestones').execPopulate()
-		.then(completeProject => res.json(completeProject))
-		.catch(next)
+	get(req.project, res, 'milestones', next)
 })
 
 router.post('/proyectos', (req, res, next) => {
@@ -46,18 +44,7 @@ router.post('/proyectos/:proyecto/milestones', (req, res, next) => {
   const project = req.project
   const milestone = new Milestone(req.body)
   milestone.project = project
-
-  milestone.save()
-    .then(savedMilestone => {
-      project.milestones.push(savedMilestone)
-
-      project.save()
-        .then(savedProject => {
-          savedProject.populate('milestones').execPopulate()
-            .then(completeProject => res.json(completeProject))
-            .catch(next)})
-        .catch(next)
-  })
+  saveParentAndChild(project, 'milestones', milestone, 'milestones', res, next)
 })
 
 router.param('milestone', (req, res, next, value) => {
@@ -73,27 +60,14 @@ router.param('milestone', (req, res, next, value) => {
 })
 
 router.get('/milestones/:milestone', (req, res, next) => {
-  req.milestone.populate('epics').execPopulate()
-    .then(completeMilestone => res.json(completeMilestone))
-    .catch(next)
+  get(req.milestone, res, 'epics', next)
 })
 
 router.post('/milestones/:milestone/epics', (req, res, next) => {
   const milestone = req.milestone
   const epic = new Epic(req.body)
   epic.milestone = milestone
-  
-  epic.save()
-    .then(savedEpic => {
-      milestone.epics.push(savedEpic)
-
-      milestone.save()
-        .then(savedMilestone => {
-          savedMilestone.populate('epics').execPopulate()
-            .then(completeMilestone => res.json(completeMilestone))
-            .catch(next)})
-        .catch(next)
-  })
+  saveParentAndChild(milestone, 'epics', epic, 'epics', res, next)
 })
 
 router.param('epic', (req, res, next, value) => {
@@ -109,46 +83,38 @@ router.param('epic', (req, res, next, value) => {
 })
 
 router.get('/epics/:epic', (req, res, next) => {
-  
-  req.epic.populate('tasks').populate('comments').execPopulate()
-    .then(completeEpic => res.json(completeEpic))
-    .catch(next)
+  get(req.epic, res, 'tasks comments, next')
 })
 
 router.post('/epics/:epic/comments', (req, res, next) => {
   const epic = req.epic
   const comment = new Comment(req.body)
   comment.epic = epic
-  
-  comment.save()
-    .then(savedComment => {
-      epic.comments.push(savedComment)
-
-      epic.save()
-        .then(savedEpic => {
-          savedEpic.populate('tasks').populate('comments').execPopulate()
-            .then(completeEpic => res.json(completeEpic))
-            .catch(next)})
-        .catch(next)
-  })
+  saveParentAndChild(epic, 'comments', comment, 'tasks comments', res, next)
 })
 
 router.post('/epics/:epic/tasks', (req, res, next) => {
   const epic = req.epic
   const task = new Task(req.body)
   task.epic = epic
-  
-  task.save()
-    .then(savedTask => {
-      epic.tasks.push(savedTask)
-
-      epic.save()
-        .then(savedEpic => {
-          savedEpic.populate('tasks').populate('comments').execPopulate()
-            .then(completeEpic => res.json(completeEpic))
-            .catch(next)})
-        .catch(next)
-  })
+  saveParentAndChild(epic, 'tasks', task, 'tasks comments', res, next)
 })
+
+function get(object, res, populateProperty, next) {
+  object.populate(populateProperty).execPopulate()
+    .then(completeObject => res.json(completeObject))
+    .catch(next)
+}
+
+function saveParentAndChild(parent, parentProperty, child, populateProperty, res, next) {
+  child.save()
+    .then(savedChild => {
+      parent[parentProperty].push(savedChild)
+
+      parent.save()
+        .then(savedParent => get(savedParent, res, populateProperty, next))
+        .catch(next)
+    })
+}
 
 export default router
