@@ -34,6 +34,7 @@
     "mocha": "^3.3.0",
     "mockgoose": "6",
     "nyc": "^10.3.2",
+    "protractor": "^5.1.1",
     "raw-loader": "^0.5.1",
     "script-loader": "^0.7.0",
     "sinon": "^2.1.0",
