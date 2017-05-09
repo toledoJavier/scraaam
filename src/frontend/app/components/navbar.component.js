@@ -23,7 +23,7 @@ import ProjectService from '../services/project.service';
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Proyectos <span class="caret"></span></a>
           <ul class="dropdown-menu">
-          	<li *ngFor="let item of projects"><a [routerLink]="['/proyecto', item._id]">{{item.name}}</a></li>
+          	<li class="project" *ngFor="let item of projects"><a [routerLink]="['/proyecto', item._id]">{{item.name}}</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#">Crear Proyecto</a></li>
           </ul>
