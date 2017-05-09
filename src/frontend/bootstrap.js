@@ -17,6 +17,7 @@ import MilestoneComponent from './app/components/milestone.component'
 import DetailMilestoneComponent from './app/components/detailMilestone.component'
 import EpicComponent from './app/components/epic.component'
 import DetailEpicComponent from './app/components/detailEpic.component'
+import ListItemComponent from './app/components/listItem.component'
 
 import { RouterModule }  from '@angular/router';
 
@@ -37,7 +38,8 @@ let router = RouterModule.forRoot([
     MilestoneComponent,
     DetailMilestoneComponent,
     EpicComponent,
-    DetailEpicComponent
+    DetailEpicComponent,
+    ListItemComponent
   ],
   bootstrap: [ AppComponent ]
 })

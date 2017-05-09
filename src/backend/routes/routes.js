@@ -8,9 +8,6 @@ import Task from '../models/Task.js'
 
 let router = express.Router()
 
-// Express routes
-router.get('/example', (req, res, next) => { })
-
 router.get('/proyectos', (req, res, next) => {
   Project.find()
     .then(proyectos => res.json(proyectos))
@@ -83,7 +80,7 @@ router.param('epic', (req, res, next, value) => {
 })
 
 router.get('/epics/:epic', (req, res, next) => {
-  get(req.epic, res, 'tasks comments, next')
+  get(req.epic, res, 'tasks comments', next)
 })
 
 router.post('/epics/:epic/comments', (req, res, next) => {
