@@ -1,26 +1,47 @@
 import "babel-polyfill"
-
+import {dropData} from "../support/dropData"
 import chai from "chai"
 chai.should()
 
-describe("Dashboard landing", () => {
+describe("Create and select a proyect", () => {
 
-  it("Should something", async() => {
+  dropData()
+
+  it("Should add a proyect to the proyect's list", async() => {
     browser.get("http://localhost:3001/#/proyectos")
 
-    const title = await browser.getTitle()
-    title.should.be.equal("Scraaam")
+    const originalCount = await element.all(by.css(".project")).count()
 
-   // const cantidadOriginal = await element.all(by.css("postlist post")).count()
+    await browser.takeScreenshot()
 
-  //  await browser.takeScreenshot()
+    element(by.css("input[name=title]")).sendKeys("A new project")
+    await element(by.css(".createProjectButton")).click()
 
-  //  element(by.css("newpost input[name=title]")).sendKeys("Noticia extra extra!")
-  //  element(by.css("newpost textarea[name=content]")).sendKeys("Este es el cuerpo de la noticia")
-  //  await element(by.css("newpost button")).click()
-
-  //  const cantidad = await element.all(by.css("postlist post")).count()
-  // cantidad.should.be.equal(cantidadOriginal + 1)
+    const newCount = await element.all(by.css(".project")).count()
+    newCount.should.be.equal(originalCount + 1)
+  
   });
+
+
+  it("Should change the selected project", async() => {
+    browser.get("http://localhost:3001/#/proyectos")
+
+    element(by.css("input[name=title]")).sendKeys("Project 1")
+    await element(by.css(".createProjectButton")).click()
+
+    element(by.css("input[name=title]")).sendKeys("Project 2")
+    await element(by.css(".createProjectButton")).click()
+
+    await element(by.css("a[class='dropdown-toggle']")).click()
+
+    await element.all(by.css(".project")).last().click()
+
+    const selectedProject = await element(by.css(".selectedSpan")).getText()
+
+    selectedProject.should.contain("Project 2")
+
+  });
+
+
 
 })
