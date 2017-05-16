@@ -18,7 +18,7 @@ import MilestoneService from '../services/milestone.service';
 							  <div class="panel-heading">Milestones<div class="pull-right text-muted">{{project.milestones?.length}} Milestones</div></div>
 							  <!-- List group -->
 							  <ul class="list-group">
-							    <li class="list-group-item" *ngFor="let item of project.milestones" (click)="selectMilestone(item)">
+							    <li class="milestone list-group-item" *ngFor="let item of project.milestones" (click)="selectMilestone(item)">
 							    	{{item.name}}
 							    </li>
 							  </ul>
@@ -26,7 +26,7 @@ import MilestoneService from '../services/milestone.service';
 							<div class="form-group row">
 		              			<div class="col-xs-4">
 									<input type="text" class="form-control" [(ngModel)]="data.name" placeholder="Nombre" name="name">
-									<button  class="btn btn-primary navbar-btn" type="button" (click)="onSubmit()">Crear Milestone</button>
+									<button  class="createMilestoneButton btn btn-primary navbar-btn" type="button" (click)="onSubmit()">Crear Milestone</button>
 								</div>
 							</div>
 						</div>

@@ -10,7 +10,7 @@ import MilestoneService from '../services/milestone.service';
   styleUrls: ['./assets/styles.css'],
   template: `<div class="panel panel-info">
 			  <!-- Default panel contents -->
-			  <div class="panel-heading">Epics</div>
+			  <div class="panel-epics panel-heading">Epics</div>
 			  <!-- List group -->
 			  <ul class="list-group">
 			    <li class="list-group-item" *ngFor="let item of data.epics; let i = index" [attr.data-index]="i" [routerLink]="['/epic', item._id]">
