@@ -7,7 +7,7 @@ import MilestoneService from '../services/milestone.service';
 @Component({
   selector: 'milestone',
   styleUrls: ['./assets/styles.css'],
-  template: `<h3><span class="span-page">{{project.name}} | Milestones </span></h3>
+  template: `<h3><span class="selectedSpan span-page">{{project.name}} | Milestones </span></h3>
   			<hr>
   			<div class="container">
 		    	<div class="panel-with-margin panel panel-default">
