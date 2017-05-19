@@ -13,7 +13,7 @@ import MilestoneService from '../services/milestone.service';
 			  <div class="panel-epics panel-heading">Epics</div>
 			  <!-- List group -->
 			  <ul class="list-group">
-			    <li class="list-group-item" *ngFor="let item of data.epics; let i = index" [attr.data-index]="i" [routerLink]="['/epic', item._id]">
+			    <li class="epic list-group-item" *ngFor="let item of data.epics; let i = index" [attr.data-index]="i" [routerLink]="['/epic', item._id]">
 			    	Epic {{i + 1}}: {{item.description}}
 			    </li>
 			  </ul>
@@ -21,7 +21,7 @@ import MilestoneService from '../services/milestone.service';
 			<div class="form-group row">
       			<div class="col-xs-8">
 					<input type="text" class="form-control" [(ngModel)]="newEpic.description" placeholder="Descripción" name="description">
-					<button  class="btn btn-primary navbar-btn" type="button" (click)="onSubmit()">Crear Epic</button>
+					<button  class="createEpicButton btn btn-primary navbar-btn" type="button" (click)="onSubmit()">Crear Epic</button>
 				</div>
 			</div>`
 })

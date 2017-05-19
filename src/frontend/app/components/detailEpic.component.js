@@ -13,7 +13,7 @@ import EpicService from '../services/epic.service';
 		    				<hr>
 							<list-item [data]="epic.comments" [listHeading]="'Comentarios'" [showProperty]="'body'"></list-item>
 							<input type="text" class="form-control" [(ngModel)]="newComment.body" placeholder="Comentario" name="comment">
-							<button class="btn btn-primary navbar-btn" type="button" (click)="comment()">Comentar</button>
+							<button class="createCommentButton btn btn-primary navbar-btn" type="button" (click)="comment()">Comentar</button>
 						</div>						
 						<div class="col-sm-6">
 							<list-item [data]="epic.tasks" [listHeading]="'Tasks'" [showProperty]="'description'"></list-item>

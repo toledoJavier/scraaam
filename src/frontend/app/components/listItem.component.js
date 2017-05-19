@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 				<div class="panel-heading">{{listHeading}}<div class="pull-right text-muted">{{data?.length}} {{listHeading}}</div></div>
 				<!-- List group -->
 				<ul class="list-group">
-				<li class="list-group-item" *ngFor="let item of data">
+				<li class="myList list-group-item" *ngFor="let item of data">
 					{{getProperty(item, showProperty)}}
 				</li>
 				</ul>
