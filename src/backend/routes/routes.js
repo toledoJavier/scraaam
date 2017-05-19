@@ -97,6 +97,24 @@ router.post('/epics/:epic/tasks', (req, res, next) => {
   saveParentAndChild(epic, 'tasks', task, 'tasks comments', res, next)
 })
 
+router.param('task', (req, res, next, value) => {
+  Task.findById(value)
+    .then(task => {
+      if (! task ) {
+        throw new Error(`Task no encontrado ${value}`)
+      }
+      req.task = task
+      next()
+    })
+    .catch(next)
+})
+
+router.delete('/epics/:epic/tasks/:task', (req, res, next) => {
+  Task.remove(req.task)
+    .then(get(req.epic, res, 'tasks', next))
+    .catch(next)
+})
+
 function get(object, res, populateProperty, next) {
   object.populate(populateProperty).execPopulate()
     .then(completeObject => res.json(completeObject))

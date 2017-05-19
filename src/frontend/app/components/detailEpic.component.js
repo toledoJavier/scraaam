@@ -16,9 +16,7 @@ import EpicService from '../services/epic.service';
 							<button class="createCommentButton btn btn-primary navbar-btn" type="button" (click)="comment()">Comentar</button>
 						</div>						
 						<div class="col-sm-6">
-							<list-item [data]="epic.tasks" [listHeading]="'Tasks'" [showProperty]="'description'"></list-item>
-							<input [(ngModel)]="data.description" type="text" class="form-control" placeholder="Descripción" name="description">
-							<button class="btn btn-primary navbar-btn" type="button" (click)="onSubmit()">Crear Tarea</button>
+							<list-tasks [data]="epic"></list-tasks>
 						</div>
 					</div>
 				</div>
