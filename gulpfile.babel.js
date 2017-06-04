@@ -3,6 +3,7 @@ import gutil from 'gulp-util'
 import babel from 'gulp-babel'
 import gls from 'gulp-live-server'
 import mocha from 'gulp-mocha'
+import { Server } from 'karma'
 
 gulp.task('transpile', () => {
 	return gulp.src(['src/backend/**/*.js'])
@@ -27,4 +28,11 @@ gulp.task('backend', () => {
 			globals: ['recursive'],
 			require: ['babel-polyfill']
 		}))
+})
+
+gulp.task('frontend-components', function(done) {
+	new Server({
+		configFile: __dirname + '/karma.conf.js',
+		singleRun: true
+	}, done).start()
 })
