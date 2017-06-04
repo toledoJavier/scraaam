@@ -11,32 +11,12 @@ import EpicService from '../services/epic.service';
 		    			<div class="col-sm-6">
 		    				{{epic.description}}
 		    				<hr>
-							<div class="panel panel-info">
-								<!-- Default panel contents -->
-								<div class="panel-heading">Comentarios<div class="pull-right text-muted">{{epic.comments?.length}} Comentarios</div></div>
-								<!-- List group -->
-								<ul class="list-group">
-								<li class="list-group-item" *ngFor="let item of epic.comments">
-									{{item.body}}
-								</li>
-								</ul>
-							</div>
+							<list-item [data]="epic.comments" [listHeading]="'Comentarios'" [showProperty]="'body'"></list-item>
 							<input type="text" class="form-control" [(ngModel)]="newComment.body" placeholder="Comentario" name="comment">
-							<button class="btn btn-primary navbar-btn" type="button" (click)="comment()">Comentar</button>
+							<button class="createCommentButton btn btn-primary navbar-btn" type="button" (click)="comment()">Comentar</button>
 						</div>						
 						<div class="col-sm-6">
-							<div class="panel panel-info">
-								<!-- Default panel contents -->
-								<div class="panel-heading">Tasks<div class="pull-right text-muted">{{epic.tasks?.length}} Tasks</div></div>
-								<!-- List group -->
-								<ul class="list-group">
-								<li class="list-group-item" *ngFor="let item of epic.tasks">
-									{{item.description}}
-								</li>
-								</ul>
-							</div>
-							<input [(ngModel)]="data.description" type="text" class="form-control" placeholder="Descripción" name="description">
-							<button class="btn btn-primary navbar-btn" type="button" (click)="onSubmit()">Crear Tarea</button>
+							<list-tasks [data]="epic"></list-tasks>
 						</div>
 					</div>
 				</div>

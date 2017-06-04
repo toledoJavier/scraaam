@@ -2,3 +2,5 @@ node_modules
 mongo_data
 npm-debug.log
 /dist
+.nyc_output/
+/coverage
