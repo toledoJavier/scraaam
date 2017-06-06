@@ -1,6 +1,9 @@
 # Scraaam: gestión de proyectos ágiles
 ***
 
+### Build 
+  _Development:_ [![Build Status](https://travis-ci.org/toledoJavier/scraaam.svg?branch=development)](https://travis-ci.org/toledoJavier/scraaam)
+
 ### Equipo
   - Luis Zagarella
   - Javier Toledo
