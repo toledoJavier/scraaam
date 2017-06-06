@@ -4,6 +4,7 @@ import babel from 'gulp-babel'
 import gls from 'gulp-live-server'
 import mocha from 'gulp-mocha'
 import { Server } from 'karma'
+const protractor =  require('gulp-protractor').protractor
 
 gulp.task('transpile', () => {
 	return gulp.src(['src/backend/**/*.js'])
@@ -36,3 +37,16 @@ gulp.task('frontend-components', function(done) {
 		singleRun: true
 	}, done).start()
 })
+
+gulp.task('frontend-e2e', () => {
+	return gulp.src(['test/e2e/*.test.js'])
+		.pipe(protractor({
+			configFile: "protractor.conf.js"
+		}))
+})
+
+gulp.task('frontend-all', ['frontend-components', 'frontend-e2e'])
+
+gulp.task('all', ['backend', 'frontend-all'])
+
+gulp.task('all-non-e2e', ['backend', 'frontend-components'])
