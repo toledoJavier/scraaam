@@ -4,7 +4,7 @@ import babel from 'gulp-babel'
 import gls from 'gulp-live-server'
 import mocha from 'gulp-mocha'
 import { Server } from 'karma'
-const protractor =  require('gulp-protractor').protractor
+import { protractor } from 'gulp-protractor'
 
 gulp.task('transpile', () => {
 	return gulp.src(['src/backend/**/*.js'])
