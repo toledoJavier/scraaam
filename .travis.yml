@@ -1,3 +1,5 @@
+sudo: required
+
 language: node_js
 node_js:
   - "6"
@@ -5,3 +7,5 @@ before_script:
   - npm install -g gulp
 script:
   - gulp lint
+  - gulp all-non-e2e
+  - npm stop
