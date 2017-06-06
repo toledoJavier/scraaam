@@ -11,4 +11,6 @@ app.use(routes)
 //Static resources
 app.use(express.static(__dirname + "/../../dist/frontend"))
 
+process.title = 'Scraaam'
+
 export default app
