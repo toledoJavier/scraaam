@@ -1,4 +1,5 @@
 sudo: required
+dist: trusty
 
 language: node_js
 node_js:
@@ -9,7 +10,11 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - npm install -g gulp
+  - npm install -g codecov
 
 script:
   - gulp lint
   - gulp all-non-e2e
+  - npm run coverage-report
+  - npm run coverage-upload --token=:codecov-token
+

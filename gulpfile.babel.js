@@ -7,6 +7,9 @@ import mocha from 'gulp-mocha'
 import { Server } from 'karma'
 import { protractor } from 'gulp-protractor'
 
+const exec = require('child_process').exec
+
+
 gulp.task('lint', () => {
 	return gulp.src(['src/**/*.js', 'test/**/*.js', '!node_modules/**'])
 		.pipe(eslint())
@@ -32,6 +35,7 @@ gulp.task('start:watch', ['transpile'], () => {
 gulp.task('backend', () => {
 	gulp.src('test/backend/**/*.js', {read: false})
 		.pipe(mocha({
+			reporter: 'nyan',
 			compilers: 'js:babel-core/register',
 			timeout: 120000,
 			globals: ['recursive'],
