@@ -1,10 +1,18 @@
 import gulp from 'gulp'
 import gutil from 'gulp-util'
+import eslint from 'gulp-eslint'
 import babel from 'gulp-babel'
 import gls from 'gulp-live-server'
 import mocha from 'gulp-mocha'
 import { Server } from 'karma'
 import { protractor } from 'gulp-protractor'
+
+gulp.task('lint', () => {
+	return gulp.src(['src/**/*.js', 'test/**/*.js', '!node_modules/**'])
+		.pipe(eslint())
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError())
+})
 
 gulp.task('transpile', () => {
 	return gulp.src(['src/backend/**/*.js'])
