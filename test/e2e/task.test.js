@@ -43,6 +43,8 @@ describe("Create and delete a task", () => {
 
     await element(by.css(".delete-task")).click()
 
+    await browser.refresh()
+
     const taskFounded = await element.all(by.css(".task-item")).count()
 
     taskFounded.should.be.equal(taskFoundedOriginal - 1)
