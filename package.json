@@ -6,7 +6,9 @@
     "start": "babel-node -- src/backend/server.js",
     "stop" : "pkill -signal SIGTERM Scraaam",
     "test": "mocha test/backend --recursive --compilers js:babel-core/register --require babel-polyfill --timeout 120000",
-    "coverage-test": "NODE_ENV=test nyc npm test"
+    "coverage-test": "NODE_ENV=test nyc npm test",
+    "coverage-report": "nyc report --reporter=lcov",
+    "coverage-upload": "codecov",
   },
   "keywords": [],
   "author": "",

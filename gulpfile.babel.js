@@ -2,10 +2,14 @@ import gulp from 'gulp'
 import gutil from 'gulp-util'
 import eslint from 'gulp-eslint'
 import babel from 'gulp-babel'
+import istanbul from 'gulp-istanbul'
 import gls from 'gulp-live-server'
 import mocha from 'gulp-mocha'
 import { Server } from 'karma'
 import { protractor } from 'gulp-protractor'
+
+const exec = require('child_process').exec
+
 
 gulp.task('lint', () => {
 	return gulp.src(['src/**/*.js', 'test/**/*.js', '!node_modules/**'])
@@ -32,6 +36,7 @@ gulp.task('start:watch', ['transpile'], () => {
 gulp.task('backend', () => {
 	gulp.src('test/backend/**/*.js', {read: false})
 		.pipe(mocha({
+			reporter: 'nyan',
 			compilers: 'js:babel-core/register',
 			timeout: 120000,
 			globals: ['recursive'],
@@ -58,3 +63,11 @@ gulp.task('frontend-all', ['frontend-components', 'frontend-e2e'])
 gulp.task('all', ['backend', 'frontend-all'])
 
 gulp.task('all-non-e2e', ['backend', 'frontend-components'])
+
+gulp.task('coverage', () => {
+   return gulp.src('test/backend/**/*.js', { read: false })
+     .pipe(istanbul())
+     .pipe(istanbul.hookRequire())
+     .pipe(mocha())
+     .pipe(istanbul.writeReports());
+ });
