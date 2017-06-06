@@ -16,4 +16,5 @@ script:
   - gulp lint
   - gulp all-non-e2e
   - npm run coverage-report
-  - npm run coverage-upload --token=:codecov
+  - npm run coverage-upload --token=:codecov-token
+
