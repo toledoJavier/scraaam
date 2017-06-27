@@ -1,7 +1,7 @@
 import app from "./app"
 
 import mongoose from 'mongoose'
-mongoose.connect('mongodb://localhost/projects')
+mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost/projects')
 
 // Express startup
 const port = 3001
