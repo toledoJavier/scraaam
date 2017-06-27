@@ -8,7 +8,7 @@ describe("Create an epic and add a comment", () => {
   dropData()
 
   beforeEach(() => {
-    browser.get("http://localhost:3001/#/proyectos")    
+    browser.get(process.env.SERVER_URL || "http://localhost:3001") 
     element(by.css("input[name=title]")).sendKeys("Project 1")
   });
 

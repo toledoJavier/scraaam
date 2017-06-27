@@ -8,7 +8,7 @@ describe("Create and select a proyect", () => {
   dropData()
 
   beforeEach(() => {
-    browser.get("http://localhost:3001/#/proyectos")
+    browser.get(process.env.SERVER_URL || "http://localhost:3001") 
   });
 
 
