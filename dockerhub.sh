@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 repoName() {
-	local DOCKERHUB_REPO_NAME=""
+	local DOCKERHUB_REPO_NAME=$TRAVIS_BRANCH
 	if [ "$TRAVIS_BRANCH" == "master" ]; then
 		local DOCKERHUB_REPO_NAME="stable"
   elif [ "$TRAVIS_BRANCH" == "development" ]; then
