@@ -5,6 +5,26 @@ language: node_js
 node_js:
   - "6"
 
+services:
+  - docker
+env:
+  - DOCKER_COMPOSE_VERSION=1.8.0
+  - BRANCH
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      BRANCH= stable
+    elif [ "$TRAVIS_BRANCH" == "develop" ]; then
+      BRANCH= devel
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
 before_script:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
@@ -17,4 +37,11 @@ script:
   - gulp all-non-e2e
   - npm run coverage-report
   - npm run coverage-upload --token=:codecov-token
+  - docker build -t $DOCKER_USERNAME/scraaam :$DOCKER_VERSION BRANCH .
+  - docker-compose run e2e
 
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" -o "$TRAVIS_BRANCH" == "develop" ]; then
+      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+      docker push $DOCKER_USERNAME/scraaam :$DOCKER_VERSION BRANCH.
+    fi
