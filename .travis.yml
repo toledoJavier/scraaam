@@ -37,7 +37,4 @@ script:
   - docker-compose run e2e
 
 after_success:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - if [ "$TRAVIS_BRANCH" == "master" -o "$TRAVIS_BRANCH" == "development" ]; then
-      docker push $DOCKER_USERNAME/scraaam-$(repoName)
-    fi
+  - pushRepoDockerhub

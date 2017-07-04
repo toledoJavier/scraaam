@@ -9,3 +9,10 @@ repoName() {
   fi;
   echo ${DOCKERHUB_REPO_NAME}
 }
+
+pushRepoDockerhub() {
+	if [ "$TRAVIS_BRANCH" == "master" -o "$TRAVIS_BRANCH" == "development" ]; then
+		docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push $DOCKER_USERNAME/scraaam-$(repoName);
+  fi
+}
