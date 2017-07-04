@@ -1,4 +1,4 @@
-sudo: required
+1sudo: required
 dist: trusty
 
 language: node_js
@@ -36,5 +36,5 @@ script:
   - docker-compose run e2e
 
 after_success:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push $DOCKER_USERNAME/scraaam-devel .
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker push $DOCKER_USERNAME/scraaam-devel;
