@@ -26,21 +26,19 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - npm install -g gulp --silent
   - npm install -g codecov --silent
+  - . ./dockerhub.sh
+  - docker build -t $DOCKER_USERNAME/scraaam-$(repoName) .
 
 script:
   - gulp lint
   - gulp all-non-e2e
   - npm run coverage-report
   - npm run coverage-upload --token=:codecov-token
-  -  if [ "$TRAVIS_BRANCH" == "master" ]; then
-      docker build -t $DOCKER_USERNAME/scraaam-stable .
-     elif [ "$TRAVIS_BRANCH" == "development" ]; then
-      docker build -t $DOCKER_USERNAME/scraaam-devel .
+  - docker build -t $DOCKER_USERNAME/scraaam-$(repoName) .
   - docker-compose run e2e
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  -  if [ "$TRAVIS_BRANCH" == "master" ]; then
-       docker push $DOCKER_USERNAME/scraaam-stable;
-     elif [ "$TRAVIS_BRANCH" == "development" ]; then
-       docker push $DOCKER_USERNAME/scraaam-devel;
+  - if [ "$TRAVIS_BRANCH" == "master" -o "$TRAVIS_BRANCH" == "development" ]; then
+      docker push $DOCKER_USERNAME/scraaam-$(repoName)
+    fi
