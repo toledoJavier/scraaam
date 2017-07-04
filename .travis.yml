@@ -27,7 +27,6 @@ before_script:
   - npm install -g gulp --silent
   - npm install -g codecov --silent
   - . ./dockerhub.sh
-  - docker build -t $DOCKER_USERNAME/scraaam-$(repoName) .
 
 script:
   - gulp lint
