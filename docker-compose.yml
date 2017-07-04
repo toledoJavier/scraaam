@@ -27,9 +27,6 @@ services:
    depends_on:
      - webdriver
      - app
-   links:
-     - webdriver
-     - app
    environment:
      MONGO_URL: 'mongodb://mongo/projects'
      SERVER_URL: 'http://app:3001'
