@@ -32,11 +32,17 @@ script:
   - gulp all-non-e2e
   - npm run coverage-report
   - npm run coverage-upload --token=:codecov-token
-  - docker build -t $DOCKER_USERNAME/scraaam/devel .
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker build -t $DOCKER_USERNAME/scraaam-stable .
+    elif [ "$TRAVIS_BRANCH" == "develop" ]; then
+      docker build -t $DOCKER_USERNAME/scraaam-devel .
+    fi
   - docker-compose run e2e
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" -o "$TRAVIS_BRANCH" == "develop" ]; then
-      docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push $DOCKER_USERNAME/scraaam/devel .
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+      docker push $DOCKER_USERNAME/scraaam-stable;
+    elif [ "$TRAVIS_BRANCH" == "develop" ]; then
+      docker push $DOCKER_USERNAME/scraaam/devel;
     fi
