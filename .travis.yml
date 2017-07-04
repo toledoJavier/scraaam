@@ -1,4 +1,4 @@
-sudo: required
+1sudo: required
 dist: trusty
 
 language: node_js
@@ -32,9 +32,9 @@ script:
   - gulp all-non-e2e
   - npm run coverage-report
   - npm run coverage-upload --token=:codecov-token
-  - docker build -t $DOCKER_USERNAME/scraaam-devel .
+  - docker build --tag $DOCKER_USERNAME/scraaam-devel:$DOCKER_VERSION .
   - docker-compose run e2e
 
 after_success:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push $DOCKER_USERNAME/scraaam-devel .
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - docker push $DOCKER_USERNAME/scraaam-devel:$DOCKER_VERSION;
