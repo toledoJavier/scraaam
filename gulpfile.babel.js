@@ -4,6 +4,9 @@ import eslint from 'gulp-eslint'
 import babel from 'gulp-babel'
 import gls from 'gulp-live-server'
 import mocha from 'gulp-mocha'
+import gulpWebpack from 'gulp-webpack'
+import webpack from 'webpack'
+import webpackConfig from './webpack.config.js'
 import { Server } from 'karma'
 import { protractor } from 'gulp-protractor'
 
@@ -52,6 +55,14 @@ gulp.task('frontend-e2e', () => {
 			configFile: "protractor.conf.js"
 		}))
 })
+
+gulp.task('webpack', () => {
+	return gulp.src(['src/frontend/**/*.js'])
+		.pipe(gulpWebpack(webpackConfig, webpack))
+		.pipe(gulp.dest('dist/frontend/'))
+})
+
+gulp.task('build', ['transpile', 'webpack'])
 
 gulp.task('frontend-all', ['frontend-components', 'frontend-e2e'])
 

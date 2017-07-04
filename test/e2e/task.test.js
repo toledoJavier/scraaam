@@ -6,7 +6,7 @@ chai.should()
 describe("Create and delete a task", () => {
 
   it("Should add a task to an epic", async() => {
-    browser.get("http://localhost:3001/#/proyectos")    
+    browser.get(process.env.SERVER_URL || "http://localhost:3001") 
     element(by.css("input[name=title]")).sendKeys("Project 1")
 
     await element(by.css(".createProjectButton")).click()

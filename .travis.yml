@@ -1,20 +1,40 @@
-sudo: required
+1sudo: required
 dist: trusty
 
 language: node_js
 node_js:
   - "6"
 
+services:
+  - docker
+env:
+  - DOCKER_COMPOSE_VERSION=1.8.0
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
 before_script:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - npm install -g gulp
-  - npm install -g codecov
+  - npm install -g gulp --silent
+  - npm install -g codecov --silent
+  - . ./dockerhub.sh
 
 script:
   - gulp lint
   - gulp all-non-e2e
   - npm run coverage-report
   - npm run coverage-upload --token=:codecov-token
+  - docker build -t $DOCKER_USERNAME/scraaam-$(repoName) .
+  - docker-compose run e2e
 
+after_success:
+  - pushRepoDockerhub
