@@ -1,9 +1,9 @@
 FROM node:latest
 
 COPY package.json .
-RUN npm install
+RUN npm install --silent
 
-RUN npm install --global gulp-cli
+RUN npm install --global gulp-cli --silent
 
 COPY . .
 
