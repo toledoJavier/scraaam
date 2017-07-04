@@ -32,9 +32,9 @@ script:
   - gulp all-non-e2e
   - npm run coverage-report
   - npm run coverage-upload --token=:codecov-token
-  - docker build --tag $DOCKER_USERNAME/scraaam-devel:$DOCKER_VERSION .
+  - docker build -t $DOCKER_USERNAME/scraaam-devel .
   - docker-compose run e2e
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  - docker push $DOCKER_USERNAME/scraaam-devel:$DOCKER_VERSION;
+  - docker push $DOCKER_USERNAME/scraaam-devel;
