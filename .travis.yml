@@ -9,11 +9,6 @@ services:
   - docker
 env:
   - DOCKER_COMPOSE_VERSION=1.8.0
-  - BRANCH
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
-      BRANCH= stable
-    elif [ "$TRAVIS_BRANCH" == "develop" ]; then
-      BRANCH= devel
 
 cache:
   directories:
@@ -37,11 +32,11 @@ script:
   - gulp all-non-e2e
   - npm run coverage-report
   - npm run coverage-upload --token=:codecov-token
-  - docker build -t $DOCKER_USERNAME/scraaam :$DOCKER_VERSION BRANCH .
+  - docker build -t $DOCKER_USERNAME/scraaam/devel .
   - docker-compose run e2e
 
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" -o "$TRAVIS_BRANCH" == "develop" ]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-      docker push $DOCKER_USERNAME/scraaam :$DOCKER_VERSION BRANCH.
+      docker push $DOCKER_USERNAME/scraaam/devel .
     fi
